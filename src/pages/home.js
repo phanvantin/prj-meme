@@ -12,6 +12,23 @@ const Home =()=>{
   const data = UsePostsPaging()
   const posts =data.posts
   const renderButtonLoadmore = data.renderButtonLoadmore
+  
+
+                                        // {scroll load Pagination }
+  // const currentPage =data.currentPage
+  // useEffect(()=>{
+  //   window.onscroll = function() {
+  //     if(
+  //       window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight
+  //     ){
+  //       dispatch(actFetchpostAsyn({
+  //         currPage: currentPage + 1,
+  //     }))
+  //     }
+  //   }
+  // },[currentPage,dispatch])
+  
+
   useEffect(()=>{
     dispatch(actFetchpostAsyn())
   },[dispatch])

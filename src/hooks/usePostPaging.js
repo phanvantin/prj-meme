@@ -9,7 +9,6 @@ export function UsePostsPaging() {
   const [isLoading, setIsLoading] = useState(false)
   const postListPaging = useSelector(state => state.Posts)
   const isLoadMore = postListPaging.isLoadMore
-  console.log(isLoadMore)
   const posts = postListPaging.postList.List
   const currentPage = postListPaging.postList.currPage
   function handleLoadMore() {
@@ -42,6 +41,8 @@ export function UsePostsPaging() {
 
   return {
     posts,
-    renderButtonLoadmore
+    currentPage,
+    renderButtonLoadmore,
+    handleLoadMore
   }
 }
