@@ -23,6 +23,11 @@ export const AuthService = {
   },
   getMe({userid =1} = {}) {
     return api.callWithToken().get('/member/member.php',{params: {userid}})
+  },
+  changeInfoUser ({fullname,description,gender,avatar}={}) {
+    return api.callWithToken().post('/member/update.php',{
+      fullname,description,gender,avatar}
+    )
   }
 
 } 

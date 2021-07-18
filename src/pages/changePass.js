@@ -20,13 +20,12 @@ const ChangePass =()=>{
     if (!isTouch) {
       // Giải quyết vấn đề ở đây
       //  - Gọi 2 thằng validate cho 2 fields thì show ra 2 error
-      validate('username', formData.oldpass)
-      validate('password', formData.newpass)
-      validate('password', formData.passconfirm)
+      validate('oldpass', formError.oldpass)
+      validate('newpass', formError.newpass)
+      validate('passconfirm', formError.passconfirm)
       return false
     }
-
-    if (!formError.oldpass && !formError.newpass && !formData.passconfirm) {
+    if (!formError.oldpass && !formError.newpass && !formError.passconfirm) {
       return true
     }
     return false
@@ -61,9 +60,7 @@ const ChangePass =()=>{
   function handleSubmit(evt) {
     evt.preventDefault()
     if (loading) return
-
     const isValid = checkIsValid()
-
     if (!isValid) return
 
     const { oldpass, newpass,passconfirm } = formData
@@ -93,7 +90,7 @@ const ChangePass =()=>{
               {formError.passconfirm && <span className="form-control__error">{ formError.passconfirm }</span>}
 
               <div className="ass1-login__send justify-content-center">
-                <button type="submit" className="ass1-btn">Gửi</button>
+                <button onClick={handleSubmit} type="submit" className="ass1-btn">Gửi</button>
               </div>
             </form>
           </div>

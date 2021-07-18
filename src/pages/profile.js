@@ -1,17 +1,22 @@
 
+import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 
 
 const Profile =()=>{
+
+    const currentUser = useSelector(state=> state.Auth.currentUser)
+    console.log(currentUser)
+
     return (
         <div className="container">
         <div className="ass1-head-user">
           <div className="ass1-head-user__content">
-            <div className="ass1-head-user__image"><a href="##"><img src="asset/images/cat-1634369_1920.jpg" alt="" /></a></div>
+            <div className="ass1-head-user__image"><a href="##"><img src={currentUser && currentUser.profilepicture} alt="" /></a></div>
             <div className="ass1-head-user__info">
               <div className="ass1-head-user__info-head">
                 <div className="ass1-head-user__name">
-                  <span>Trần Công Lực</span>
+                  <span>{currentUser && currentUser.fullname}</span>
                   <i><img src="asset/fonts/emotion/svg/Verified.svg" alt="" /></i>
                 </div>
                 <div className="w-100" />

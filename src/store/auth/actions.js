@@ -75,6 +75,7 @@ export function actChangePassWordAsync(oldpass, newpass,passconfirm) {
         newPassword:newpass,
         reNewPassword: passconfirm
       })
+      
       return {
         ok: true
       }
@@ -108,6 +109,26 @@ export function actRegisterAsync(email, fullname,password,repassword) {
           ok: true
         }
       }
+    catch(err) {  
+        return {
+          ok: false,
+          error: err
+        }
+    }
+  }
+
+}
+
+export function actChangeProfileAsync(fullname, gender,description,avatar) {
+  return async () =>{
+    try {
+      await AuthService.changeInfoUser(
+          {fullname,description,gender,avatar}
+      )
+      return {
+        ok: true
+      }
+    }
     catch(err) {  
         return {
           ok: false,
