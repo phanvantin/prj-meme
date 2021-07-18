@@ -1,17 +1,34 @@
 
-import {ACT_FETCH_POST} from './actions'
+import {ACT_FETCH_POST,ACT_SET_LOAD_MORE} from './actions'
 
 const initState = {
-  postList: [],
-
+  postList: {
+    List: [],
+    currPage: 0,
+    pagesize: 0,
+  },
+  isLoadMore: true,
 }
 
 function postsReducer(postsState = initState, action) {
   switch (action.type) {
+    case ACT_SET_LOAD_MORE:
+			return {
+        ...postsState,
+        isLoadMore: false
+      }
     case ACT_FETCH_POST:
       return {
         ...postsState,
-        postList: action.payload.posts
+        postList: {
+          ...postsState.postList,
+          List: [
+            ...postsState.postList.List,
+            ...action.payload.posts,
+          ],
+          currPage:action.payload.currPage,
+          pagesize:action.payload.pagesize
+        }
 
       }
       default:

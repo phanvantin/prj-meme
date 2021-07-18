@@ -3,7 +3,8 @@ import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Switch,
-  Route
+  Route,
+  useRouteMatch
 } from "react-router-dom";
 
 import Header from "./components/header";
@@ -12,7 +13,8 @@ import {actFetchMeAsync} from './store/auth/actions'
 
 function App() {
   const userid = useSelector(state=>state.Auth.userid);
-  const isHeader = useSelector(state => state.isHeader)
+  const isHeader = useRouteMatch(['/register', '/login'])
+  // const isHeader = useSelector(state => state.isHeader)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(actFetchMeAsync(userid))
@@ -29,7 +31,7 @@ function App() {
   return (
     <div className="App">
       { 
-      isHeader &&
+      !isHeader &&
       <Header/>
       }
       {showRouter(routes)}

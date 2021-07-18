@@ -1,12 +1,17 @@
 import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch} from "react-redux"
+import { UsePostsPaging } from "../hooks/usePostPaging";
 import PostItem from "../components/postItem";
 import { actFetchpostAsyn } from "../store/posts/actions";
 
 
+
 const Home =()=>{
+
   const dispatch = useDispatch();
-  const posts = useSelector(state=>state.Posts.postList);
+  const data = UsePostsPaging()
+  const posts =data.posts
+  const renderButtonLoadmore = data.renderButtonLoadmore
   useEffect(()=>{
     dispatch(actFetchpostAsyn())
   },[dispatch])
@@ -23,7 +28,7 @@ const Home =()=>{
                 )
               })
             }
-              <button className="load-more ass1-btn"><span>Xem thêm</span></button>
+              {renderButtonLoadmore()}
             </div>
           </div>
           <div className="col-lg-4">
