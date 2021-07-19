@@ -6,7 +6,6 @@ import { Link } from "react-router-dom"
 const Profile =()=>{
 
     const currentUser = useSelector(state=> state.Auth.currentUser)
-    console.log(currentUser)
 
     return (
         <div className="container">

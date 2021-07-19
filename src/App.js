@@ -12,13 +12,13 @@ import routes from "./config-router";
 import {actFetchMeAsync} from './store/auth/actions'
 
 function App() {
-  const userid = useSelector(state=>state.Auth.userid);
   const isHeader = useRouteMatch(['/register', '/login'])
   // const isHeader = useSelector(state => state.isHeader)
+  const userid = useSelector(state=>state.Auth.userid);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(actFetchMeAsync(userid))
-  },)
+  },[dispatch,userid])
   function showRouter(routes) {
     let xhtml = null;
     if(routes.length >0) {

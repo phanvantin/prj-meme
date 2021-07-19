@@ -1,25 +1,43 @@
-import { useState } from "react"
-import { useDispatch } from "react-redux"
+
+import axios from 'axios'
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 
 
 
-import {actChangeProfileAsync} from '../store/auth/actions'
+import {actFetchMeAsync} from '../store/auth/actions'
 
 
 
 
-const ChangeProfile =()=>{
+const ChangeProfile = ()=>{
   const dispatch = useDispatch()
-  const [loading, setLoading] = useState(false)
-  const [profileImg, setProfileImg] = useState("asset/images/user-02.jpg")
-  const [formData, setFormData] = useState({
-    fullname: '123123',
+  const currentUser = useSelector(state=> state.Auth.currentUser)
+  const [profileImg, setProfileImg] = useState("")
+  const [formData, setFormData] =  useState({
+    fullname: '',
     gender: '',
-    description: '1231234',
+    description: '',
     avatar: '',
 
   });
+  useEffect(()=>{
+    currentUser &&setProfileImg(currentUser.profilepicture);
+    currentUser &&
+    setFormData((initFormData)=>{
+      return {
+        ...initFormData,
+        fullname: currentUser.fullname,
+        description: currentUser.description,
+        gender: currentUser.gender
+      }
+    })
+
+  },[currentUser])
+  
+  const userid = useSelector(state=>state.Auth.userid);
   function handleChange(e) {
+    
     if(e.target.name === "avatar") {
       const reader = new FileReader();
       reader.onload = () =>{
@@ -31,7 +49,7 @@ const ChangeProfile =()=>{
       setProfileImg(reader.result)
       setFormData({
         ...formData,
-        avatar: e.target.files[0].name
+        avatar: e.target.files[0]
       })
     }else {
       setFormData({
@@ -41,22 +59,50 @@ const ChangeProfile =()=>{
     }
   }
   function handleSubmit(e) {
-    
-    e.preventDefault()
-    if (loading) return
-    
+e.preventDefault()
+var bodyFormData = new FormData();
     const { fullname, gender,description,avatar } = formData
-    setLoading(true)
-    dispatch(actChangeProfileAsync(fullname, gender,description,avatar))  
-      .then(res => {
-        if (res && res.ok) {
-          console.log(res.ok)
-        } else {
-          console.log(res.error)
-          // alert(res.error)
-        }
-      })
-      .finally(() => setLoading(false))
+
+// if(e.target.name === "avatar") {
+//   bodyFormData.append('avatar', e.target.files[0]); 
+// }else {
+//   bodyFormData.append([e.target.name], e.target.value);
+// }
+  bodyFormData.append('fullname',fullname);
+  bodyFormData.append('gender',gender);
+  bodyFormData.append('description',description);
+  bodyFormData.append('avatar',avatar);
+
+axios({
+  method: "post",
+  url: "http://api-meme-zendvn-01.herokuapp.com/api//member/update.php",
+  data: bodyFormData,
+  headers: { "Content-Type": "multipart/form-data",
+  Authorization: 'Bearer ' + localStorage.getItem('access_token')
+},
+})
+  .then(function () {
+    dispatch(actFetchMeAsync(userid))
+  })
+  .catch(function (response) {
+    //handle error
+    console.log(response);
+  });
+   
+    // if (loading) return
+    
+    // const { fullname, gender,description,avatar } = formData
+    // setLoading(true)
+    // dispatch(actChangeProfileAsync(fullname, gender,description,avatar))  
+    //   .then(res => {
+    //     if (res && res.ok) {
+    //       console.log(res.ok)
+    //     } else {
+    //       console.log(res.error)
+    //       // alert(res.error)
+    //     }
+    //   })
+    //   .finally(() => setLoading(false))
   }
   // const imageHandler = (e) => {
   //   const reader = new FileReader();
