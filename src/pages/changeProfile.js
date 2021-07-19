@@ -63,11 +63,6 @@ e.preventDefault()
 var bodyFormData = new FormData();
     const { fullname, gender,description,avatar } = formData
 
-// if(e.target.name === "avatar") {
-//   bodyFormData.append('avatar', e.target.files[0]); 
-// }else {
-//   bodyFormData.append([e.target.name], e.target.value);
-// }
   bodyFormData.append('fullname',fullname);
   bodyFormData.append('gender',gender);
   bodyFormData.append('description',description);
