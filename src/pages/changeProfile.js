@@ -84,30 +84,7 @@ axios({
     console.log(response);
   });
    
-    // if (loading) return
-    
-    // const { fullname, gender,description,avatar } = formData
-    // setLoading(true)
-    // dispatch(actChangeProfileAsync(fullname, gender,description,avatar))  
-    //   .then(res => {
-    //     if (res && res.ok) {
-    //       console.log(res.ok)
-    //     } else {
-    //       console.log(res.error)
-    //       // alert(res.error)
-    //     }
-    //   })
-    //   .finally(() => setLoading(false))
   }
-  // const imageHandler = (e) => {
-  //   const reader = new FileReader();
-  //   reader.onload = () =>{
-  //     if(reader.readyState === 2){
-  //       setProfileImg(reader.result)
-  //     }
-  //   }
-  //   reader.readAsDataURL(e.target.files[0])
-  // };
     return (
       <div className="ass1-login">
         <div className="ass1-login__content">

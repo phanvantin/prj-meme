@@ -4,7 +4,7 @@ import postsReducer from './posts/reducer'
 import authReducer from './auth/reducer'
 import isShowHeader from './page/reducer'
 // import menusReducer from './menus/reducer'
-// import categoriesReducer from './categories/reducer'
+import categoriesReducer from './categories/reducer'
 // import commentsReducer from './comments/reducer'
 
 
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
   Posts: postsReducer,
   Auth: authReducer,
   isHeader: isShowHeader,
-  // Categories: categoriesReducer,
+  Categories: categoriesReducer,
   // Menus: menusReducer,
   // Comments: commentsReducer
 })

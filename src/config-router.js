@@ -1,4 +1,5 @@
 import React from 'react';
+import PostCategories from './pages/categoryPage';
 
 import ChangePass from "./pages/changePass";
 import ChangeProfile from "./pages/changeProfile";
@@ -46,6 +47,11 @@ const routes = [
         path: '/login',
         exact: true,
         main: () => <Login  />
+    },
+    { 
+        path: '/category/:id',
+        exact: false,
+        main: () => <PostCategories />
     },
     { 
         path: '/',

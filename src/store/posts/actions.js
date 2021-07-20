@@ -36,6 +36,7 @@ return async dispatch =>{
     ...restParams
     })
     const posts = response.data.posts;
+    console.log(posts.length);
     if(posts.length < 3) {
       dispatch(actSetLoadMore())
     }

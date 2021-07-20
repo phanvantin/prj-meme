@@ -7,15 +7,19 @@ import {
   useRouteMatch
 } from "react-router-dom";
 
-import Header from "./components/header";
+import Header from "./components/header/header";
 import routes from "./config-router";
 import {actFetchMeAsync} from './store/auth/actions'
+import { actGetCategoryAsync} from './store/categories/action'
 
 function App() {
   const isHeader = useRouteMatch(['/register', '/login'])
   // const isHeader = useSelector(state => state.isHeader)
   const userid = useSelector(state=>state.Auth.userid);
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(actGetCategoryAsync())
+  },[dispatch])
   useEffect(() => {
     dispatch(actFetchMeAsync(userid))
   },[dispatch,userid])
@@ -34,7 +38,7 @@ function App() {
       !isHeader &&
       <Header/>
       }
-      {showRouter(routes)}
+      <div id="container">{showRouter(routes)}</div>
     </div>
   );
 }

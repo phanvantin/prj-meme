@@ -4,7 +4,9 @@ import { actFetchpostAsyn } from '../store/posts/actions'
 import Button from '../components/common/Button';
 
 
-export function UsePostsPaging() {
+export function UsePostsPaging({
+  extraParams = {}
+} = {}) {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const postListPaging = useSelector(state => state.Posts)
@@ -19,6 +21,7 @@ export function UsePostsPaging() {
     setIsLoading(true)
     dispatch(actFetchpostAsyn({
         currPage: currentPage + 1,
+        ...extraParams
     }))
     .finally(() => {
       setIsLoading(false)   

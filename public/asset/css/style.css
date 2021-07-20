@@ -2268,11 +2268,23 @@ body {
     top: 100%;
     left: 0;
     right: 0;
+    overflow: hidden;
     background-color: #ffffff;
     background-image: url('../images/menu-bg.jpg');
     background-position: cover;
     border-top: solid 1px #e5e9ec;
     border-bottom: solid 1px #e6e9f1;
+    animation: category linear 0.2s;
+  }
+  @keyframes category {
+    from {
+      opacity: 0;
+      height: 0;
+    }
+    to {
+      opacity: 1;
+      height: 200px;
+    }
   }
   .ass1-header__nav > .container {
     flex-wrap: wrap;

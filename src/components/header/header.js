@@ -1,9 +1,26 @@
+import {  useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import {actSetToken,actSetCurrentUser} from '../store/auth/actions';
+import {actSetToken,actSetCurrentUser} from '../../store/auth/actions';
+import Category from "./category";
 
 
 const Header =()=>{
+  const categories = useSelector(state=>state.Categories.category)
+  const [isCategory,setIsCategory] = useState(false);
+  
+  useEffect(()=>{
+
+    let hideCategory = document.querySelector("#container")
+
+      hideCategory.addEventListener('click',()=> {
+        setIsCategory(false)
+      })
+      if(isCategory === true){
+        // fixx ko dc, vẫn nge sự kiện khi isCategory = true
+        hideCategory.removeEventListener('click',()=>{ })
+      }
+    },[isCategory])
   const currentUser = useSelector(state=>state.Auth.currentUser)
   const dispatch = useDispatch();
   function handleLogout(evt) {
@@ -20,7 +37,7 @@ const Header =()=>{
             </Link>
             {/* <div class="ass1-header__btn-dropdown ass1-btn-icon"><i class="icon-Arrow_Down"></i></div>
             <ul class="ass1-header__dropdown">
-                <li><a href=#>Home</a></li>
+                <li><a href="##">Home</a></li>
                 <li><a href="##">Single Post</a></li>
                 <li><a href="##">Multiple Image Post</a></li>
                 <li><a href="##">Single Video Post</a></li>
@@ -32,37 +49,11 @@ const Header =()=>{
             <nav>
               <ul className="ass1-header__menu">
                 <li>
-                  <a href="##">Danh mục</a>
-                  <div className="ass1-header__nav" style={{display: 'none'}}>
+                  <a onClick={()=>setIsCategory(!isCategory)} href="##">Danh mục</a>
+                  <div className="ass1-header__nav" style={{display: `${isCategory ? "block" : "none"}`}}>
                     <div className="container">
-                      <ul>
-                        <li><a href="##">New Releases</a></li>
-                        <li><a href="##">Popular</a></li>
-                        <li><a href="##">Top 50</a></li>
-                        <li><a href="##">Upcoming</a></li>
-                        <li><a href="##">Gaming News</a></li>
-                      </ul>
-                      <ul>
-                        <li><a href="##">XBOX One</a></li>
-                        <li><a href="##">Play Station 4</a></li>
-                        <li><a href="##">PC</a></li>
-                        <li><a href="##">Handheld</a></li>
-                        <li><a href="##">Walkthrough</a></li>
-                      </ul>
-                      <ul>
-                        <li><a href="##">Game Reviews</a></li>
-                        <li><a href="##">Cancelled Games</a></li>
-                        <li><a href="##">Mobile Games</a></li>
-                        <li><a href="##">Free Games</a></li>
-                        <li><a href="##">Discount Codes</a></li>
-                      </ul>
-                      <ul>
-                        <li><a href="##">Game Wiki</a></li>
-                        <li><a href="##">Cheat Coddes</a></li>
-                        <li><a href="##">Contests</a></li>
-                        <li><a href="##">Giveaways</a></li>
-                        <li><a href="##">Hardware</a></li>
-                      </ul>
+                      
+                    <Category categories={categories}/>
                     </div>
                     <div className="ass1-header__menu-transition" style={{left: '319.594px', height: '30px', width: '73px'}} />
                   </div>
